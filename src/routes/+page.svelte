@@ -1,6 +1,6 @@
 <script>
   let state = "AZ";
-  let year = "2023";
+  let year = "2024";
   let chamber = "senate";
   let goodRollCalls = `https://legiscan.com/AZ/rollcall/SB1003/id/1373207
 https://legiscan.com/AZ/rollcall/SB1004/id/1398904`;
@@ -9,8 +9,9 @@ https://legiscan.com/AZ/rollcall/SB1004/id/1398904`;
 
   let ws;
   let connected = false;
-  let url = "wss://lairdscanback.oscarlaird.com/ws";
-  // let url = "ws://localhost:5000/ws";
+  import { page } from '$app/stores';
+  $: url = $page.url.searchParams.get('serve_local') ? "ws://localhost:5000/ws"
+    : "wss://lairdscanback.oscarlaird.com/ws";
 
   function connectWebSocket() {
     ws = new WebSocket(url);
